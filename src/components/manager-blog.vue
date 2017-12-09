@@ -41,6 +41,7 @@
             that.getList();
         })
     },
+    
     methods: {
         getList(){
             var that = this;
