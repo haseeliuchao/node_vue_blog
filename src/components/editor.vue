@@ -46,7 +46,7 @@
         mounted(){
             var that = this;
             this.$help.$on("get_md",function(req){
-                this.$ajax.post('http://127.0.0.1:3000/get_md_blog', this.$qs.stringify({
+                this.$ajax.post(this.$api+'/get_md_blog', this.$qs.stringify({
                     id: sessionStorage.getItem('name'),
                     name:req.name
                 })).then(res =>{
@@ -110,7 +110,7 @@
                     })
                     return;
                 }
-                    this.$ajax.post('http://127.0.0.1:3000/'+url+'',this.$qs.stringify({
+                    this.$ajax.post(this.$api+'/'+url+'',this.$qs.stringify({
                         id:sessionStorage.getItem('name'),
                         title : that.title,
                         html : that.getHtml(),

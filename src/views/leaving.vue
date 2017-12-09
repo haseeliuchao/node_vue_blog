@@ -42,7 +42,7 @@
             },
             getLm(){
                 var that = this;
-                this.$ajax.post('http://127.0.0.1:3000/get_leaveword', this.$qs.stringify({
+                this.$ajax.post(this.$api+'/get_leaveword', this.$qs.stringify({
                     id: sessionStorage.getItem('name'),
                 })).then(res => {
                     that.data = res.data.data;
@@ -50,7 +50,7 @@
             },
             deleteLm(name){
                 var that = this;
-                this.$ajax.post('http://127.0.0.1:3000/delete_leaveword', this.$qs.stringify({
+                this.$ajax.post(this.$api+'/delete_leaveword', this.$qs.stringify({
                     id: sessionStorage.getItem('name'),
                     name: that.nowName
                 })).then(res => {

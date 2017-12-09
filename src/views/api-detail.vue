@@ -24,7 +24,7 @@
           props:{},
           created(){
 			var that = this;
-			this.$ajax.post('http://127.0.0.1:3000/get_address').then(res=>{
+			this.$ajax.post(this.$api+'/get_address').then(res=>{
 						that.ip = res.data;
 					})   
 		  }

@@ -26,7 +26,7 @@
               if(that.password != that.re_password){
                 that.$message.error("密码校验不正确！")
               }else{
-                this.$ajax.post('http://127.0.0.1:3000/register',this.$qs.stringify({
+                this.$ajax.post(this.$api+'/register',this.$qs.stringify({
                     username : that.username,
                     password : that.password,
                 })).then(res=>{

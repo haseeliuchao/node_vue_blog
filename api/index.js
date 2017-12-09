@@ -27,6 +27,7 @@ function getIp() {
   }
   return iptable.localIP
 }
+console.log(getIp())
 // 获取当月的天数
 function getDaysInOneMonth(year, month) {
   month = parseInt(month, 10)
@@ -206,8 +207,8 @@ app.post('/send_img', function (req, res) {
     if (err) {
       res.send(err)
     } else {
-      let url='http://' + getIp() + ':3000/upload/' + time + '.png';
-      sql.query('insert into work set ?', {date:new Date(), description:url}, function (err) {
+      let url = 'http://' + getIp() + ':3000/upload/' + time + '.png';
+      sql.query('insert into work set ?', { date: new Date(), description: url }, function (err) {
         if (err) {
           console.log(err)
         } else {

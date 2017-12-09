@@ -30,7 +30,7 @@
                 var that=this;
                 reader.onloadend=function(){
                    	that.imgs.push(reader.result)  
-					that.$ajax.post('http://127.0.0.1:3000/send_img',that.$qs.stringify({img:reader.result})
+					that.$ajax.post(that.$api+'/send_img',that.$qs.stringify({img:reader.result})
 						
 					).then(res=>{
 						that.urlList.push(res.data.data)

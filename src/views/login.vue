@@ -27,7 +27,7 @@ export default {
       login(){
          var that = this;
          if(this.username!=''&&this.password!=''){
-              this.$ajax.post('http://127.0.0.1:3000/login',this.$qs.stringify({
+              this.$ajax.post(this.$api+'/login',this.$qs.stringify({
                     username : that.username,
                     password : that.password,
                 })).then(res=>{
