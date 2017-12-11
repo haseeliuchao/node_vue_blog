@@ -5,7 +5,3 @@ var dbData,sql
 var content = fs.readFileSync(path.join(__dirname, "./../config/mysql.json"))
 sql = mysql.createConnection(JSON.parse(content.toString()))
 module.exports = sql
-console.log(path.resolve(__dirname, "./../config/mysql.json"))
-console.log(content);
-console.log(sql);
-console.log(JSON.parse(content.toString()))

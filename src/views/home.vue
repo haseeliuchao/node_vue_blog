@@ -7,16 +7,16 @@
         <span class='blog-num'>{{data.blogNum|notNull}}</span>
       </el-button>
       </router-link>
-      <el-button class='blog-btn' type="info">总评论
+      <el-button class='blog-btn' type="info" @click="allcommetAdd">总评论
         <span class='blog-num'>{{data.allComment|notNull}}</span>
       </el-button>
-      <el-button class='blog-btn' type="success">总访问量
+      <el-button class='blog-btn' type="success" >总访问量
         <span class='blog-num'>{{data.totalVisit|notNull}}</span>
       </el-button>
       <el-button class='blog-btn' type="danger">留言数
         <span class='blog-num'>{{data.leaveword|notNull}}</span>
       </el-button>
-      <el-button class='blog-btn today' type="warning">今日访问量
+      <el-button class='blog-btn today' type="warning" @click="addtodayvisit">今日访问量
         <span class='blog-num'>{{data.todayVisit|notNull}}</span>
       </el-button>
       <statistics></statistics>
@@ -25,33 +25,50 @@
 </template>
 
 <script>
-import statistics from './../components/statistics.vue'
+import statistics from "./../components/statistics.vue";
 export default {
-  name: 'home',
+  name: "home",
   data() {
     return {
-      data: ''
-    }
+      data: "",
+    };
   },
-  created() {
-    
-  },
+  created() {},
   mounted() {
-    var that =this;
-   this.$ajax.post(this.$api+'/get_msg', this.$qs.stringify({
-      id: sessionStorage.getItem('name'),
-    })).then(res => {
-      that.data = res.data;
-      that.$help.$emit('statis',{'arr':res.data.visit_arr});
-    })
+    var that = this;
+    this.$ajax
+      .post(
+        this.$api + "/get_msg",
+        this.$qs.stringify({ id: sessionStorage.getItem("name") })
+      )
+      .then(res => {
+        that.data = res.data;
+        that.$help.$emit("statis", { arr: res.data.visit_arr });
+      });
   },
   components: {
     statistics
   },
   methods: {
+    allcommetAdd() {
+      var that = this;
+      that.data.allComment++;
+    },
 
+    addtodayvisit() {
+      var that = this;
+      this.$ajax
+        .post(
+          this.$api + "/user_visit",
+          this.$qs.stringify({ id: sessionStorage.getItem("name") })
+        )
+        .then(res => {
+          that.data.todayVisit ++;
+          
+        });
+    }
   }
-}
+};
 </script>
 <style lang='less'>
 .blog-btn {

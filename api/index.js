@@ -27,7 +27,6 @@ function getIp() {
   }
   return iptable.localIP
 }
-console.log(getIp())
 // 获取当月的天数
 function getDaysInOneMonth(year, month) {
   month = parseInt(month, 10)
@@ -171,8 +170,11 @@ app.post('/get_msg', function (req, res) {
     for (var i = 0, len = rows.length; i < len; i++) {
       allComment = rows[i].comment ? allComment - 0 + (rows[i].comment - 0) : allComment
     }
-    sql.query('select visitNum from person  where user = "' + req.body.id + '"', function (err, rows) {
-      totalVisit = rows[0].visitNum ? rows[0].visitNum : 0;
+    // sql.query('select visitNum from person  where user = "' + req.body.id + '"', function (err, rows) {
+    // totalVisit = rows[0].visitNum ? rows[0].visitNum : 0;
+    sql.query('select * from visit', function (err, rows) {
+      
+      totalVisit = rows ? rows.length : 0;
       sql.query('select * from leaveword ', function (err, rows) {
         leaveword = rows ? rows.length : 0;
         sql.query('select * from visit where  time <"' + todayEndTime + '"and time>"' + todayStartTime + '" and name = "' + req.body.id + '"', function (err, rows) {
@@ -186,10 +188,12 @@ app.post('/get_msg', function (req, res) {
             visit_arr: visit_arr
           })
         })
+
       })
     })
   })
 })
+// })
 // 上传图片接口
 app.post('/send_img', function (req, res) {
   var imgData = req.body.img

@@ -25,115 +25,124 @@
         </div>
 </template>
 <script>
-    export default {
-    data() {
-      return {
-        dialogVisible: false,
-        noteData:"",
-        color:['success','warning','primary'],
-        nowName:'',
-      }
-    }, 
-    mounted(){
-        var that = this;
-        this.getList();
-        this.$help.$on("getlist",function(){
-            that.getList();
-        })
-    },
+export default {
+  data() {
+    return {
+      dialogVisible: false,
+      noteData: "",
+      color: ["success", "warning", "primary"],
+      nowName: ""
+    };
+  },
+  mounted() {
+    var that = this;
+    this.getList();
+    this.$help.$on("getlist", function() {
+      that.getList();
+    });
+  },
 
-    methods: {
-        getList(){
-            var that = this;
-            this.$ajax.post(this.$api+'/get_note', this.$qs.stringify({
-                id :  sessionStorage.getItem('name')
-            })).then(res=>{
-                    var  res = that.$qs.parse(res).data;
-                    if(res.code!=0){
-                        that.noteData = res.data;
-                    }else{
-                       
-                    }
-                })
-        },
-        redomColor(value){
-            var num = Math.floor(Math.random()*3)
-            return this.color[num]
-        },
-        readyDelete(name){
-            this.dialogVisible = true
-            this.nowName = name;
-        },
-        deleteTitle(){
-            var that = this;
-            this.dialogVisible = false;
-            this.$ajax.post(this.$api+'/delete_note',this.$qs.stringify({
-                    name:that.nowName,
-                    id: sessionStorage.getItem('name')
-                })).then(res=>{
-                    if(res.code!=0){
-                        that.$message({
-                            showClose: true,
-                            message: '删除成功',
-                            type: 'success'
-                        })
-                        that.getList();
-                    }else{
-                       that.$message({
-                            showClose: true,
-                            message: '删除失败',
-                            type: 'fail'
-                        })
-                    }
-                    that.nowName = '';
-                })
-        },
-        modify(name){
-            this.$help.$emit("modify",{
-                name:name,
+  methods: {
+    getList() {
+      var that = this;
+      this.$ajax
+        .post(
+          this.$api + "/get_note",
+          this.$qs.stringify({
+            id: sessionStorage.getItem("name")
+          })
+        )
+        .then(res => {
+          var res = that.$qs.parse(res).data;
+          if (res.code != 0) {
+            that.noteData = res.data;
+          } else {
+          }
+        });
+    },
+    redomColor(value) {
+      var num = Math.floor(Math.random() * 3);
+      return this.color[num];
+    },
+    readyDelete(name) {
+      this.dialogVisible = true;
+      this.nowName = name;
+    },
+    deleteTitle() {
+      var that = this;
+      this.dialogVisible = false;
+      this.$ajax
+        .post(
+          this.$api + "/delete_note",
+          this.$qs.stringify({
+            name: that.nowName,
+            id: sessionStorage.getItem("name")
+          })
+        )
+        .then(res => {
+          if (res.code != 0) {
+            that.$message({
+              showClose: true,
+              message: "删除成功",
+              type: "success"
             });
-        }
+            that.getList();
+          } else {
+            that.$message({
+              showClose: true,
+              message: "删除失败",
+              type: "fail"
+            });
+          }
+          that.nowName = "";
+        });
+    },
+    modify(name) {
+      this.$help.$emit("modify", {
+        name: name
+      });
     }
-  };
+  }
+};
 </script>
 <style lang='less'>
-.el-tabs__nav{
-    float:right;
-    margin-right:20px;
+.el-tabs__nav {
+  float: right;
+  margin-right: 20px;
 }
-.blog-content{
-    width:100%;
-    min-height: 580px;
-    .card{
-        position:relative;
-        wdith:100%;
-        margin:20px 20px;
-        height:70px;
-        border-bottom:1px solid #d1dbe5;
-        overflow:hidden;
-        .card-title{
-            text-indent:20px;
-        }
-        .tag-box{
-            position:absolute;
-            left:20px;
-            bottom:10px;
-            span{
-                margin:0 2px;
-            }
-        }
-        .manager{
-            position:absolute;
-            right:20px;
-            top:10px;
-        }
-        .remand{
-            position:absolute;
-            bottom:10px;
-            right:20px;
-            color:#666;
-            font-size:14px;
-        }
+.blog-content {
+  width: 100%;
+  min-height: 580px;
+  .card {
+    position: relative;
+    wdith: 100%;
+    margin: 20px 20px;
+    height: 70px;
+    border-bottom: 1px solid #d1dbe5;
+    overflow: hidden;
+    .card-title {
+      text-indent: 20px;
     }
+    .tag-box {
+      position: absolute;
+      left: 20px;
+      bottom: 10px;
+      span {
+        margin: 0 2px;
+      }
+    }
+    .manager {
+      position: absolute;
+      right: 20px;
+      top: 10px;
+    }
+    .remand {
+      position: absolute;
+      bottom: 10px;
+      right: 20px;
+      color: #666;
+      font-size: 14px;
+    }
+  }
 }
 </style>
